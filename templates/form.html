@@ -1,7 +1,12 @@
 <form method="post">
   {% csrf_token %}
+  
+  {% if flag == 'reg' %}
     {{ profile_form.as_p }}
     {{ user_form.as_p }}
+   {% else %}
+   		{{ form.as_p }}
+   	{% endif %}
 
   <button type="submit">Save changes</button>
 </form>

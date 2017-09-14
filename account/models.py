@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
+from django.core.validators import URLValidator
 from django.db import models
 
 
@@ -18,8 +19,8 @@ class Profile(models.Model):
     present_address = models.TextField()
     permanent_address = models.TextField()
     email = models.EmailField()
-    website = models.CharField(max_length=500, null=True)
-    facebook_page = models.CharField(max_length=500)
+    website = models.CharField(max_length=500, default=None, validators=[URLValidator()])
+    facebook_page = models.CharField(max_length=500, validators=[URLValidator()])
 
     def __str__(self):
         return str(self.user_id)
