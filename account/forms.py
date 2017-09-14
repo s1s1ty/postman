@@ -17,3 +17,8 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         exclude = ('user_id',)
         fields = '__all__'
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField()
