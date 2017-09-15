@@ -20,11 +20,6 @@ class ProfileForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    USER_CHOICES = (
-        ('M', 'Marchant'),
-        ('U', 'User')
-    )
-    user_type = forms.ChoiceField(choices=USER_CHOICES)
     username = forms.CharField()
-    password = forms.CharField(widget = forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput)
 

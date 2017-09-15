@@ -1,1 +1,10 @@
 {% extends 'base.html' %}
+
+{% for i in info %}
+    {{ i.profile.full_name }}
+    {{ i.profile.email }}
+    {{ i.profile.user_type }}
+    {{ i.profile.company_address }}
+    {{ i.profile.office_address }}
+    {{ i.profile.full_name }}
+{% endfor %}

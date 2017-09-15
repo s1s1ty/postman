@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-LOGOUT_REDIRECT_URL = '/index/'
+LOGOUT_REDIRECT_URL = '/'
 ROOT_URLCONF = 'postman.urls'
 
 TEMPLATES = [
