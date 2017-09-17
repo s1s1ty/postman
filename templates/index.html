@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% block contect %}
+<h1>
 
 {% for i in info %}
     {{ i.profile.full_name }}
@@ -7,4 +9,8 @@
     {{ i.profile.company_address }}
     {{ i.profile.office_address }}
     {{ i.profile.full_name }}
+
 {% endfor %}
+
+</h1>
+{% endblock %}

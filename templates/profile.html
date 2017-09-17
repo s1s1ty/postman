@@ -1,9 +1,31 @@
-{% for i in info %}
-	{{ i.profile.user_type }}
-	{{ i.profile.full_name }}
-	{{ i.profile.company_name }}
-	{{ i.profile.office_address }}
-	{{ i.profile.email }}
-{% endfor %}
+{% extends 'base.html' %}
 
-<a href="{% url 'change_password' %}">Change Password?</a>
+{% block content %}
+
+
+<div class="container">
+	<div class="row">
+		<!-- <div class="col-sm-12"> -->
+					
+			<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+				<div class="col-sm-3" style="background-color: #fff; padding: 20px; border-radius: 5px; margin: 20px; ">
+
+				{% if data.profile_pic %}
+					<img src="{{ data.profile_pic.url }}" height="250px" width="250px">
+				{% else %}
+					<img src="default_pp.jpg" height="250px" width="250px">
+				{% endif %}	
+				<br><a href="{% url 'change_password' %}">Change Password?</a>
+
+				</div>
+				<div class="col-sm-7" style="background-color: #fff; padding: 20px; border-radius: 5px; margin: 20px; ">
+					{{ form.as_p }}
+				  <button type="submit" class="btn btn-primary pull-right">Submit Changes</button>
+				</div>
+			</form>
+			
+		<!-- </div> -->
+	</div>
+</div>
+
+{% endblock %}

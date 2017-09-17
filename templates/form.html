@@ -1,12 +1,31 @@
-<form method="post">
-  {% csrf_token %}
-  
-  {% if flag == 'reg' %}
-    {{ profile_form.as_p }}
-    {{ user_form.as_p }}
-   {% else %}
-   		{{ form.as_p }}
-   	{% endif %}
+{% extends 'base.html' %}
 
-  <button type="submit">Save changes</button>
-</form>
+{% block title %}Form {% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-5" style="background-color: #fff; padding: 20px; border-radius: 5px; margin: 20px; box-shadow: 0px 2px 10px #343a40; ">
+					<form method="post">
+					  <div class="form-group">{% csrf_token %}
+					  
+					  {% if flag == 'reg' %}
+						    {{ profile_form.as_p }}
+						    {{ user_form.as_p }}
+					   {% elif flag == 'login' %}
+					   		{{ form.as_p }}
+					   		<p>Not on register yet? <a href="{% url 'registration'%}">Sign Up</a></p>
+					   	{% else %}
+					   		{{ form.as_p }}
+					   	{% endif %}
+					 
+					  <button type="submit" class="btn btn-primary pull-right">Submit</button>
+					</form>
+				</div>
+
+		</div>
+	</div>
+</div>
+{% endblock %}

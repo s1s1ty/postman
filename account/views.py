@@ -2,12 +2,12 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 
-from .forms import UserForm, ProfileForm, LoginForm
+from .forms import UserForm, ProfileForm, LoginForm, ProfileUpdateForm
 from .models import Profile
 
 
@@ -74,14 +74,21 @@ def login_view(request):
     return render(request, 'form.html', context)
 
 @login_required
-def profile_view(request, user_id):
-    query = User.objects.filter(pk=user_id).select_related('profile')
+def profile_view(request, user_id=None):
+    data = Profile.objects.get(user_id=user_id)
+    form = ProfileUpdateForm(request.POST or None,request.FILES or None, instance=data)
+    if request.method == 'POST':
+        import pdb; pdb.set_trace()
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
     context = {
         'title': 'Profile',
-        'info': query
+        'form': form,
+        'data': data
     }
+    
     return render(request, 'profile.html', context)
-
 
 @login_required
 def change_password(request):
