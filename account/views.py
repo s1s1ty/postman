@@ -2,10 +2,10 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib import messages
 
 from .forms import UserForm, ProfileForm, LoginForm, ProfileUpdateForm
 from .models import Profile
@@ -53,22 +53,24 @@ def registration(request):
 
 
 def login_view(request):
-    login_form = LoginForm(request.POST or None)
+    form = LoginForm(request.POST or None)
     if request.method == 'POST':
 
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user_type = User.objects.filter(username=username).select_related('profile')[0].profile.user_type
-
-        if login_form.is_valid:
+        if form.is_valid:
             user = authenticate(username=username, password=password)
             if user is not None and user.is_active:
                 login(request, user)
+                messages.success(request, "Login SuccessFull")
                 return redirect('/')
+            else:
+                messages.error(request, "Username and Password Incorrect")
+
     context = {
         'title': 'Login',
-        'form': login_form,
+        'form': form,
         'flag': 'login'
     }
     return render(request, 'form.html', context)
@@ -78,7 +80,6 @@ def profile_view(request, user_id=None):
     data = Profile.objects.get(user_id=user_id)
     form = ProfileUpdateForm(request.POST or None,request.FILES or None, instance=data)
     if request.method == 'POST':
-        import pdb; pdb.set_trace()
         if form.is_valid():
             instance = form.save(commit=False)
             instance.save()

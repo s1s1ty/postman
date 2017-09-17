@@ -3,8 +3,10 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+from account.models import Profile
 
-class DeliveryDetail(models.Model):
+
+class SendProduct(models.Model):
     PAYMENT_CHOICE = (
         ('A', 'Advanced'),
         ('C', 'COD'),
@@ -16,6 +18,6 @@ class DeliveryDetail(models.Model):
     payable_amount = models.IntegerField(default=0)
     delivery_charge = models.IntegerField(default=0)
     qr_code = models.ImageField(upload_to='qrcode', blank=True, null=True)
-
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
 
