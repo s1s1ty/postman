@@ -5,15 +5,16 @@
 
 <div class="container">
 	<div class="row">
-		<!-- <div class="col-sm-12"> -->
-					
+		<div class="col-sm-1"></div>
+		 <div class="col-sm-10">
+
 			<form method="POST" enctype="multipart/form-data">{% csrf_token %}
 				<div class="col-sm-3" style="background-color: #fff; padding: 20px; border-radius: 5px; margin: 20px; ">
 
 				{% if data.profile_pic %}
-					<img src="{{ data.profile_pic.url }}" height="250px" width="250px">
+					<img src="{{ data.profile_pic.url }}" height="200px" width="200px">
 				{% else %}
-					<img src="default_pp.jpg" height="250px" width="250px">
+					<img src="default_pp.jpg" height="200px" width="200px">
 				{% endif %}	
 				<br><a href="{% url 'change_password' %}">Change Password?</a>
 
@@ -24,7 +25,7 @@
 				</div>
 			</form>
 			
-		<!-- </div> -->
+		 </div>
 	</div>
 </div>
 

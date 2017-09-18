@@ -15,16 +15,21 @@
 						<div class="alert alert-danger">
 							<strong>{{ message }}</strong>
 						</div>
+					{% else %}
+						<div class="alert alert-success">
+							<strong>{{ message }}</strong>
+						</div>
 					{% endif %}
     			{% endfor %}
 				{% endif %}
 
-				<form method="post" action="/send-product/add/?&part=2">
+				<form method="post" enctype="multipart/form-data">{% csrf_token %}
                     {% if code == 'qrcode' %}
-                        <img src="https://www.google.com/search?q=image&client=ubuntu&hs=Byd&tbm=isch&imgil=OWH8_JM7S2IcxM%253A%253BbJhHHhVtaJtXcM%253Bhttp%25253A%25252F%25252Fwww.wallpaperbackgrounds.org%25252Fimage%25252F&source=iu&pf=m&fir=OWH8_JM7S2IcxM%253A%252CbJhHHhVtaJtXcM%252C_&usg=__Ty8qtMK76mxkue75mr4qHGo0JGQ%3D&biw=1366&bih=626&ved=0ahUKEwiS7-iBwqzWAhXEPI8KHWAuBeUQyjcIOQ&ei=D5K-WdKrM8T5vATg3JSoDg#imgdii=X2IXEL0mPq7K-M:&imgrc=OWH8_JM7S2IcxM:" height="300px" width="300px">
-                        <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                        <img src="{{ img }}" height="300px" width="300px">
+
+					<button type="submit" class="btn btn-primary pull-right">Submit</button>
                     {% else %}
-					  <div class="form-group">{% csrf_token %}
+					  <div class="form-group">
 
 						  <h1 style="text-align: center; color:#337ab7;">{{ headline }}</h1>
 					   		{{ form.as_p }}
