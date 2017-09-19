@@ -8,6 +8,20 @@
 		<div class="col-sm-1"></div>
 		 <div class="col-sm-10">
 
+			 	{% if messages %}
+    			{% for message in messages %}
+					{% if message.tags == 'error'%}
+						<div class="alert alert-danger">
+							<strong>{{ message }}</strong>
+						</div>
+					{% else %}
+						<div class="alert alert-success">
+							<strong>{{ message }}</strong>
+						</div>
+					{% endif %}
+    			{% endfor %}
+				{% endif %}
+
 			<form method="POST" enctype="multipart/form-data">{% csrf_token %}
 				<div class="col-sm-3" style="background-color: #fff; padding: 20px; border-radius: 5px; margin: 20px; ">
 

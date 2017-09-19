@@ -41,6 +41,7 @@ def registration(request):
             if user_login is not None:
                 if user_login.is_active:
                     login(request, user_login)
+                    messages.success('Registration Complete')
                     return redirect('/')
 
     context = {
@@ -66,7 +67,7 @@ def login_view(request):
                 messages.success(request, "Login SuccessFull")
                 return redirect('/')
             else:
-                messages.error(request, "Username and Password Incorrect")
+                messages.error(request, "Incorrect Username and Password")
 
     context = {
         'title': 'Login',
@@ -83,6 +84,7 @@ def profile_view(request, user_id=None):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.save()
+            messages.success(request, 'Information saved successfully')
     context = {
         'title': 'Profile',
         'form': form,
