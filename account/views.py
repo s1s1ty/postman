@@ -41,7 +41,7 @@ def registration(request):
             if user_login is not None:
                 if user_login.is_active:
                     login(request, user_login)
-                    messages.success('Registration Complete')
+                    messages.success(request, 'Registration Complete')
                     return redirect('/')
 
     context = {
