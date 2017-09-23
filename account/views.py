@@ -42,6 +42,8 @@ def registration(request):
                 if user_login.is_active:
                     login(request, user_login)
                     messages.success(request, 'Registration Complete')
+                    if user_login.is_staff:
+                        return redirect('/admin/')
                     return redirect('/')
 
     context = {
@@ -65,6 +67,8 @@ def login_view(request):
             if user is not None and user.is_active:
                 login(request, user)
                 messages.success(request, "Login SuccessFull")
+                if user.is_staff:
+                    return redirect('/admin/')
                 return redirect('/')
             else:
                 messages.error(request, "Incorrect Username and Password")
@@ -75,6 +79,7 @@ def login_view(request):
         'flag': 'login'
     }
     return render(request, 'form.html', context)
+
 
 @login_required
 def profile_view(request, user_id=None):
