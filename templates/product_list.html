@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+        <div class="col-sm-9">
+  <!-- Table -->
+              <table class="table table-bordered table-striped table-hover">
+                   <tr>
+                       <td><strong>Serial</strong></td>
+                       <td><strong>Product Name</strong></td>
+                       <td><strong>Delivery Address</strong></td>
+                        <td><strong>Payable Amount</strong></td>
+                        <td><strong>Delivery Charge</strong></td>
+                        <td><strong>Paid Status</strong></td>
+                        <td><strong>Delivery Status</strong></td>
+                  </tr>
+
+                  {% for ob in product %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ob.item_name}}</td>
+                    <td>{{ob.delivery_address}}</td>
+                    <td>{{ob.payable_amount}}</td>
+                    <td>{{ob.delivery_charge}}</td>
+                    <td>{{ob.paid_text}}</td>
+                    {% if ob.delivery_status %}
+                        <td><button type="button" class="btn btn-success">{{ob.delivery_status_text}}</button></td>
+                    {% else %}
+                        <td><button type="button" class="btn btn-danger">{{ob.delivery_status_text}}</button></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+
+              </table>
+            </div>
+        <div class="col-sm-3" style="background-color: #fff; border-radius: 5px;">
+            <h2><u>Payment Status</u></h2>
+            <h4>Total Taka: <span style="color: green;">{{ total_taka }}</span></h4>
+            <h4>Paid: <span style="color:green;">{{ paid }}</span></h4>
+            <h4>Due: <span style="color:red;">{{ due }}</span></h4>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

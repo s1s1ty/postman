@@ -3,11 +3,10 @@ from __future__ import unicode_literals
 
 import StringIO
 import qrcode
+from django.contrib.auth.models import User
+
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
-from django.http import HttpResponse
-
-from account.models import Profile
 
 
 class SendProduct(models.Model):
@@ -22,7 +21,21 @@ class SendProduct(models.Model):
     payable_amount = models.IntegerField(default=0)
     delivery_charge = models.IntegerField(default=0)
     qr_code = models.ImageField(upload_to='qrcode', blank=True, null=True)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    paid = models.BooleanField(default=0)
+    delivery_status = models.BooleanField(default=0)
+
+    @property
+    def paid_text(self):
+        if self.paid:
+            return 'Paid'
+        return 'Due'
+
+    @property
+    def delivery_status_text(self):
+        if self.delivery_status:
+            return 'Delivered'
+        return 'Not Delivered'
 
     @property
     def generate_qrcode(self):

@@ -22,7 +22,7 @@ class SendProductForm(forms.ModelForm):
 
     class Meta:
         model = SendProduct
-        exclude = ('qr_code', 'user')
+        exclude = ('qr_code', 'user', 'paid', 'delivery_status')
         fields = '__all__'
 
 
